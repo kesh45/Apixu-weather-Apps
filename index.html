@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+ <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <title>Weather</title>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+   <link rel="stylesheet" href="materialize.min.css">
+   <link rel="stylesheet" href="animate.css">
+
+   <style>
+     body{
+       letter-spacing: 1px;
+     }
+
+     .inv{
+       font-size: 2.1em;
+       font-weight: 700!important;
+       letter-spacing: 2px;
+     }
+     .brand-logo{
+       margin-top: 5px;
+     }
+     .bgt{
+         /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+     }
+
+     blockquote {
+    border-left: 5px solid #000;
+}
+
+   </style>
+</head>
+<body class="grey lighten-5">
+  
+  <nav>
+    <div class="nav-wrapper grey darken-4">
+      <a href="#!" class="brand-logo"><img src="sd.png" width="45"></a></a>
+    
+      <ul class="left">
+        <li><a class="nav-link" href="#" style="margin-top:4px;" onclick="Reloaderx()"><i class="fa fa-refresh fa-2x"></i></a></li>
+      </ul>
+      <ul class="right">
+        <li><a class="modal-trigger nav-link" style="margin-top:4px;" href="#modal1"><i class="fa fa-close fa-2x"></i></a></li>
+      </ul>
+     
+    </div>
+  </nav>
+  
+  <br>
+
+   <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Do you want to exit ?</h5>
+     
+    </div>
+    <div class="modal-footer">
+      <button id="backbutton" onclick="onLod();" class="waves-effect waves-green btn-flat">Yes</button>
+    </div>
+  </div>
+
+<div class="container">
+  
+  <div class="card wow fadeIn" data-wow-delay="3s">
+ <div id="bgt" class="img-fluid">
+  <div class="center-align">
+    <br>
+    <img id="pic" width="104">
+    <div class="inv"><span id="demo3"></span></div>
+    <br>
+  </div>
+  </div>
+ </div>
+
+
+  <ul class="collapsible wow fadeIn" data-wow-delay="3s" data-collapsible="accordion">
+    <li>
+      <div  class="collapsible-header"><i class="fa fa-map-marker"></i>Location</div>
+      <div class="collapsible-body"><b>Country : </b> <span id="demo2"></span> <br> <b>Address :</b> <span id="demo"></span>
+      <br> <b>Coordinate :</b> <span id="demox"></span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="fa fa-cloud"></i>Current condition</div>
+      <div class="collapsible-body"><b>Condition :</b> <span id="demo4"></span> <br> <b>Temperature :</b> <span id="demo5"></span> <br> <b>Wind speed :</b> <span id="demo6"></span> <br> 
+      <b>Wind degree :</b> <span id="demo7"></span> <br> <b>Wind direction :</b> <span id="demo8"></span> <br> <b>Pressure :</b> <span id="demo9"></span> <br> <b>Humidity :</b> <span id="demo10"></span> <br>
+       <b>Cloud :</b> <span id="demo11"></span> <br> <b>precipitation :</b> <span id="demo12"></span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="fa fa-sun-o"></i>Astronomy</div>
+      <div class="collapsible-body"><b>Moon phase :</b> <span id="x1"></span> <br> <b>Moonrise :</b> <span id="x2"></span> <br> <b>Moonset :</b> <span id="x3"></span> <br>
+      <b>Sunrise :</b> <span id="x4"></span> <br> <b>Sunset :</b> <span id="x5"></span></div>
+    </li>
+  </ul>
+<hr>
+  
+<blockquote>
+<p class="flow-text"><b>Your locations</b></p>
+</blockquote>
+<div id="map" class="card" style="height:250px;"></div>
+
+<br>
+</div>
+
+ 
+ 
+ <!-- JQuery -->
+ 
+  <script src="phonegap.js"></script>
+  <script src="cordova.js"></script>
+   <script>
+        function onLod() {
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+
+function onDeviceReady() {
+    document.addEventListener("backbutton", onBackKeyDown, false);
+}
+
+function onBackKeyDown() {
+ navigator.app.exitApp();
+}
+
+
+    </script>
+  <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+  <script src="materialize.min.js"></script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5L9wEKmfiAan5TTlH_CyaHt4jWPH8mGA&callback=initMap">
+    </script>
+
+   
+
+
+
+    <script>
+      new WOW().init();
+    </script>
+  <script>
+    (function($){
+  $(function(){
+
+    $('.button-collapse').sideNav();
+    $('.parallax').parallax();
+    $('.modal').modal();
+    
+  }); 
+})(jQuery); 
+  </script>
+
+
+<script>
+var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -20.269041, lng: 57.5670723},
+          zoom: 18,
+          mapTypeId: 'hybrid',
+           heading: 90,
+           tilt: 45
+        });
+         map.setTilt(45);
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+           
+             var image = 'marker.png';
+                var marker = new google.maps.Marker({
+              position: pos,
+              map: map,
+               icon: image
+                     });
+
+                marker.setMap(map);
+
+          
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+    function rotate90() {
+     var heading = map.getHeading() || 0;
+      map.setHeading(heading + 90);
+     }
+
+    function autoRotate() {
+       if (map.getTilt() !== 0) {
+       window.setInterval(rotate90, 3000);
+    }
+   }
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+ 
+
+    var astro ="https://api.wunderground.com/api/31bb96285004060a/geolookup/astronomy/q/Mauritius/Port_Louis.json";
+  $.getJSON(astro, function(sdc){
+    document.getElementById('x1').innerHTML = sdc.moon_phase.phaseofMoon;
+    var monr = sdc.moon_phase.moonrise.hour+':'+sdc.moon_phase.moonrise.minute;
+    var mons = sdc.moon_phase.moonset.hour+':'+sdc.moon_phase.moonset.minute;
+    var sunr = sdc.sun_phase.sunrise.hour+':'+sdc.sun_phase.sunrise.minute+' A.M';
+    var suns = sdc.sun_phase.sunset.hour+':'+sdc.sun_phase.sunset.minute+' P.M';
+    document.getElementById('x4').innerHTML = sunr; 
+    document.getElementById('x5').innerHTML = suns; 
+    document.getElementById('demo2').innerHTML = sdc.location.country_name;  
+    if(monr >= 12){
+       document.getElementById('x2').innerHTML = monr+' P.M';
+    }else{
+      document.getElementById('x2').innerHTML = monr+' A.M';
+    }
+    if(mons >= 12){
+     document.getElementById('x3').innerHTML = mons+' P.M'; 
+    }else{
+      document.getElementById('x3').innerHTML = mons+' A.M';
+    }
+
+  });
+   
+navigator.geolocation.getCurrentPosition(function(location) {
+
+  var x = location.coords.latitude + ',' + location.coords.longitude;
+
+  var las  = location.coords.latitude;
+  var los = location.coords.longitude;
+ document.getElementById('demox').innerHTML = x;
+
+
+var xs ='https://api.apixu.com/v1/current.json?key=c33607d11a274aa2b7f171822171708&q='+x;
+
+  $.getJSON(xs, function(json) {
+   var updating = json.current.last_updated;
+   Materialize.toast('<b>Updated on : </b>'+' ' + updating, 4000)
+   var day = json.current.is_day;
+   var humidity =json.current.humidity+ '%';
+   var cloud = json.current.cloud+ '%';
+   var prect = json.current.precip_mm+ 'mm';
+   var temp = json.current.temp_c + ' &#x2103;';
+   var img = json.current.condition.icon;
+    var wind_dir = json.current.wind_dir + ' &deg;';
+   
+    document.getElementById("pic").src ="https:"+img;
+    document.getElementById('demo').innerHTML = json.location.name;
+    
+    document.getElementById('demo5').innerHTML = temp;
+     document.getElementById('demo4').innerHTML = json.current.condition.text;
+     document.getElementById('demo6').innerHTML = json.current.wind_kph + ' kph';
+    document.getElementById('demo7').innerHTML = json.current.wind_degree + ' &deg;';
+    document.getElementById('demo8').innerHTML = wind_dir;	
+   document.getElementById('demo9').innerHTML = json.current.pressure_mb + ' mb';
+   document.getElementById('demo10').innerHTML = humidity;
+   document.getElementById('demo11').innerHTML = cloud;
+    document.getElementById('demo12').innerHTML = prect;
+   if (day =='0'){
+   document.getElementById('demo3').innerHTML = "Night";
+   document.getElementById("bgt").style.backgroundImage = "url('test1.jpg')";
+     document.getElementById("demo3").style.color = "white";
+
+
+   } else {
+
+   document.getElementById('demo3').innerHTML = "Day";
+   document.getElementById("bgt").style.backgroundImage = "url('test2.jpg')";
+  
+
+} 
+      
+     
+ });
+ });
+
+ function Reloaderx() {
+  location.reload(); 
+}
+</script>
+
+
+ 
+</body>
+
+</html>
